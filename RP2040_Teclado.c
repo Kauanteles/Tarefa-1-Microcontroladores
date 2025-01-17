@@ -79,6 +79,12 @@ void executar_tecla(char teclaPressionada)
         gpio_put(GPIO_VERMELHO, true);
         sleep_ms(1000);
         gpio_put(GPIO_VERMELHO, false);
+        break;
+    case 'B': //Liga o LED verde
+        gpio_put(GPIO_VERDE, true);
+        sleep_ms(1000);
+        gpio_put(GPIO_VERDE, false);
+        break;
     default: //Caso nenhuma tecla seja pressionada, não faz nada
         break;
     }
