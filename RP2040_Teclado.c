@@ -85,6 +85,17 @@ void executar_tecla(char teclaPressionada)
         sleep_ms(1000);
         gpio_put(GPIO_VERDE, false);
         break;
+    case '#':
+        gpio_put(GPIO_VERDE, true);
+        sleep_ms(500);
+        gpio_put(GPIO_VERDE, false);
+        gpio_put(GPIO_AZUL, true);
+        sleep_ms(500);
+        gpio_put(GPIO_AZUL, false);
+        gpio_put(GPIO_VERMELHO, true);
+        sleep_ms(500);
+        gpio_put(GPIO_VERMELHO, false);
+        break;
     default: //Caso nenhuma tecla seja pressionada, não faz nada
         break;
     }
