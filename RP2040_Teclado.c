@@ -110,6 +110,6 @@ int main()
     {
         char teclaPressionada = escanear_teclado();
         executar_tecla(teclaPressionada);
-        sleep_ms(500);
+        sleep_ms(100);
     }
 }
