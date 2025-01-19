@@ -55,7 +55,7 @@ target_include_directories(RP2040_Teclado PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(RP2040_Teclado 
-        
+        hardware_pwm
         )
 
 pico_add_extra_outputs(RP2040_Teclado)
