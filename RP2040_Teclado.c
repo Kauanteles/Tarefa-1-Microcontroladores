@@ -128,9 +128,8 @@ void executar_tecla(char teclaPressionada)
         break;
 
      case '0': // Aciona o buzzer por 2 segundos quando a tecla '0' for pressionada
-        gpio_put(GPIO_BUZZER, true);
-        sleep_ms(2000);
-        gpio_put(GPIO_BUZZER, false);
+        play_tone(2093, 2000, GPIO_BUZZER);
+        play_tone(0, 0, GPIO_BUZZER);
         break;
 
     case '*': // ativa o buzzer
