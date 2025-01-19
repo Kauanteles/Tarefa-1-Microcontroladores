@@ -49,6 +49,7 @@ void init_gpio()
     gpio_set_dir(GPIO_VERDE, GPIO_OUT);
     gpio_set_dir(GPIO_AZUL, GPIO_OUT);
     gpio_set_dir(GPIO_BUZZER, GPIO_OUT);
+    gpio_set_function(GPIO_BUZZER, GPIO_FUNC_PWM);
 }
 
 //Detectar, por linha e coluna, a tecla pressionada 
