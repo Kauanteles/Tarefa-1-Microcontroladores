@@ -53,4 +53,4 @@ Possuindo o teclado, conecte-o aos pinos de extensão da placa, de acordo com o 
 
 ## Vídeo Ensaio
 
-Clique em ***[https://youtu.be/JWtNuQbO8Z0]()*** para visualizar o vídeo ensaio do projeto.
+Clique em ***[link do video](https://youtu.be/JWtNuQbO8Z0)*** para visualizar o vídeo ensaio do projeto.
