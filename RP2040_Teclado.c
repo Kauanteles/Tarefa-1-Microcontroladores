@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "hardware/pwm.h"
 
 //Dimensões do teclado
 #define LINHA_QNTD 4
@@ -48,6 +49,7 @@ void init_gpio()
     gpio_set_dir(GPIO_VERDE, GPIO_OUT);
     gpio_set_dir(GPIO_AZUL, GPIO_OUT);
     gpio_set_dir(GPIO_BUZZER, GPIO_OUT);
+    gpio_set_function(GPIO_BUZZER, GPIO_FUNC_PWM); // setta a função PWM para o  Buzzer
 }
 
 //Detectar, por linha e coluna, a tecla pressionada 
@@ -68,6 +70,20 @@ char escanear_teclado()
         gpio_put(gpioLinha[row], true);
     }
     return 0; // Nenhuma tecla detectada
+}
+
+// Toca uma frequência no buzzer, usando o PWM
+void play_tone(uint16_t frequency, uint duration_ms, uint pin) {
+    if (frequency > 0) {
+        uint slice_num = pwm_gpio_to_slice_num(pin);
+        pwm_set_wrap(slice_num, 125000000 / frequency - 1);
+        pwm_set_gpio_level(pin, (125000000 / frequency) / 2);
+        pwm_set_enabled(slice_num, true);
+        sleep_ms(duration_ms);
+    }
+    else {
+        pwm_set_enabled(pwm_gpio_to_slice_num(pin), false);
+    }
 }
 
 //Realiza ação de acordo com a tecla pressionada
@@ -99,7 +115,7 @@ void executar_tecla(char teclaPressionada)
         gpio_put(GPIO_VERDE, false);
         gpio_put(GPIO_AZUL, false);
         break;
-    case '#':
+    case '#': // Liga três LEDs alternadamente
         gpio_put(GPIO_VERDE, true);
         sleep_ms(500);
         gpio_put(GPIO_VERDE, false);
@@ -110,11 +126,37 @@ void executar_tecla(char teclaPressionada)
         sleep_ms(500);
         gpio_put(GPIO_VERMELHO, false);
         break;
+
      case '0': // Aciona o buzzer por 2 segundos quando a tecla '0' for pressionada
         gpio_put(GPIO_BUZZER, true);
         sleep_ms(2000);
         gpio_put(GPIO_BUZZER, false);
         break;
+
+    case '*': // ativa o buzzer
+        int tones[] = {
+            2093, 2350, 2637, 2794, 3136, 3520, 3951, 4186, 0 // dó, ré, mi, fá, sol, lá, si, DÓ, pausa
+        };
+        int leds_to_lightup[] = {
+            GPIO_VERMELHO,
+            GPIO_AZUL,
+            GPIO_VERDE,
+            GPIO_VERMELHO,
+            GPIO_AZUL,
+            GPIO_VERDE,
+            GPIO_VERMELHO,
+            GPIO_AZUL
+        }; // um led para cada nota
+        int tam_tones = 9;
+        for (int i = 0; i < tam_tones; i++) {
+            if (tones[i] != 0)
+                gpio_put(leds_to_lightup[i], true);
+            play_tone(tones[i], 500, GPIO_BUZZER);
+            if (tones[i] != 0)
+                gpio_put(leds_to_lightup[i], false);
+        }
+        break;
+        
     default: //Caso nenhuma tecla seja pressionada, não faz nada
         break;
     }
@@ -129,6 +171,6 @@ int main()
     {
         char teclaPressionada = escanear_teclado();
         executar_tecla(teclaPressionada);
-        sleep_ms(500);
+        sleep_ms(100);
     }
 }
