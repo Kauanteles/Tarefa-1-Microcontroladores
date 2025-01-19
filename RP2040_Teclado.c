@@ -49,7 +49,7 @@ void init_gpio()
     gpio_set_dir(GPIO_VERDE, GPIO_OUT);
     gpio_set_dir(GPIO_AZUL, GPIO_OUT);
     gpio_set_dir(GPIO_BUZZER, GPIO_OUT);
-    gpio_set_function(GPIO_BUZZER, GPIO_FUNC_PWM);
+    gpio_set_function(GPIO_BUZZER, GPIO_FUNC_PWM); // setta a função PWM para o  Buzzer
 }
 
 //Detectar, por linha e coluna, a tecla pressionada 
@@ -72,6 +72,7 @@ char escanear_teclado()
     return 0; // Nenhuma tecla detectada
 }
 
+// Toca uma frequência no buzzer, usando o PWM
 void play_tone(uint16_t frequency, uint duration_ms, uint pin) {
     if (frequency > 0) {
         uint slice_num = pwm_gpio_to_slice_num(pin);
@@ -114,7 +115,7 @@ void executar_tecla(char teclaPressionada)
         gpio_put(GPIO_VERDE, false);
         gpio_put(GPIO_AZUL, false);
         break;
-    case '#':
+    case '#': // Liga três LEDs alternadamente
         gpio_put(GPIO_VERDE, true);
         sleep_ms(500);
         gpio_put(GPIO_VERDE, false);
