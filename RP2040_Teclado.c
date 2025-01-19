@@ -90,7 +90,7 @@ void executar_tecla(char teclaPressionada)
         gpio_put(GPIO_VERDE, true);
         gpio_put(GPIO_AZUL, true);
         sleep_ms(1000);
-         gpio_put(GPIO_VERMELHO, false);
+        gpio_put(GPIO_VERMELHO, false);
         gpio_put(GPIO_VERDE, false);
         gpio_put(GPIO_AZUL, false);
         break;
