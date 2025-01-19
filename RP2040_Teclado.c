@@ -85,12 +85,17 @@ void executar_tecla(char teclaPressionada)
         sleep_ms(1000);
         gpio_put(GPIO_VERDE, false);
         break;
+    case 'C': //Liga o LED Azul
+        gpio_put(GPIO_AZUL, true);
+        sleep_ms(1000);
+        gpio_put(GPIO_AZUL, false);
+        break;
     case 'D': //Liga os três LEDS
         gpio_put(GPIO_VERMELHO, true);
         gpio_put(GPIO_VERDE, true);
         gpio_put(GPIO_AZUL, true);
         sleep_ms(1000);
-         gpio_put(GPIO_VERMELHO, false);
+        gpio_put(GPIO_VERMELHO, false);
         gpio_put(GPIO_VERDE, false);
         gpio_put(GPIO_AZUL, false);
         break;
