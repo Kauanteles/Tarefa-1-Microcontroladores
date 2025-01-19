@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/RP2040_Teclado.hex'
+elf = 'build/RP2040_Teclado.elf'
