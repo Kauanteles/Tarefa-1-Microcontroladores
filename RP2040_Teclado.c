@@ -126,6 +126,13 @@ void executar_tecla(char teclaPressionada)
         sleep_ms(500);
         gpio_put(GPIO_VERMELHO, false);
         break;
+
+     case '0': // Aciona o buzzer por 2 segundos quando a tecla '0' for pressionada
+        gpio_put(GPIO_BUZZER, true);
+        sleep_ms(2000);
+        gpio_put(GPIO_BUZZER, false);
+        break;
+
     case '*': // ativa o buzzer
         int tones[] = {
             2093, 2350, 2637, 2794, 3136, 3520, 3951, 4186, 0 // dó, ré, mi, fá, sol, lá, si, DÓ, pausa
@@ -149,6 +156,7 @@ void executar_tecla(char teclaPressionada)
                 gpio_put(leds_to_lightup[i], false);
         }
         break;
+        
     default: //Caso nenhuma tecla seja pressionada, não faz nada
         break;
     }
